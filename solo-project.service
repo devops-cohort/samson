@@ -1,0 +1,11 @@
+[Unit]
+Description=Flask Application
+
+[Service]
+EnvironmentFile=/opt/solo-project/venv/bin/activate
+User=pythonadm
+WorkingDirectory=/opt/solo-project
+ExecStart=/bin/bash -c 'cd /opt/solo-project && source ~/.bashrc && source ./venv/bin/activate && gunicorn --bind=0.0.0.0 application:app'
+
+[Install]
+WantedBy=multi-user.target
