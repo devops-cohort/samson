@@ -22,8 +22,32 @@ class RegisterForm(FlaskForm):
             )
     submit = SubmitField('Register')
 
+    # Checking the email to make sure it's not already in the database
     def validate_email(self, email):
         user = User.query.filter_by(email = email.data).first()
         if user:
             raise ValidatorError('Email is already in use!')
 
+    # Checking the password to make sure it has uppercase, lowercase, an integer and is at least 6 characters long    
+    def validate_password(self, password):
+        valid = True
+        if len(password.data < 6):
+            valid = False
+            ValidatorError('Password needs to be more than 6 characters')
+        elif not re.search([A-Z], password.data):
+            valid = False
+            ValidatorError('Password needs to have UPPERCASE characters')
+        elif not re.search([a-z], password.data):
+            valid = False
+            ValidatorError('Password needs to have LOWERCASE characters')
+        elif not re.search([0-9], password.data):
+            valid = False
+            ValidatorError('Password needs to have NUMBERS')
+        # If the validation conditions are not met then show the following error message 
+        if valid == False:
+            ValidatorError('Password needs to have UPPERCASE, LOWERCASE, NUMBERS and must be at least 6 characters long')
+
+    # Checking if the confirm password field matches the password field
+    def validate_confirm_password(self, confirm_password):
+        if confirm_password.data != password.data:
+            raise ValidatorError('Passwords do not match!')
