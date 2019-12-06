@@ -22,7 +22,7 @@ class Anime(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
     genre = db.Column(db.String(30), nullable=False)
-    year_released = db.Column(db.Integer, nullable=False)
+    year_released = db.Column(db.String(4), nullable=False)
     relation = db.relationship('Anime_Watching', backref='anime', lazy=True)
     relation2 = db.relationship('Anime_Completed', backref='anime', lazy=True)
 
@@ -38,13 +38,13 @@ class Anime_Watching(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     anime_id = db.Column(db.Integer, db.ForeignKey('anime.id'), nullable=False)
     episode = db.Column(db.Integer, nullable=True)
-    date_started = db.Column(db.DateTime, nullable=True)
+    #date_started = db.Column(db.DateTime, nullable=True)
 
     def __repr__(self):
         return ''.join([
             'Title: ', self.anime_id.title, '\r\n',
-            'Episode: ', self.episode, '\r\n',
-            'Date Started: ', self.date_started
+            'Episode: ', self.episode, '\r\n'
+            #'Date Started: ', self.date_started
             ])
 
 class Anime_Completed(db.Model):
@@ -52,13 +52,13 @@ class Anime_Completed(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     anime_id = db.Column(db.Integer, db.ForeignKey('anime.id'), nullable=False)
     # date_started = db.Column(db.Datetime nullable=True)
-    date_finished = db.Column(db.DateTime, nullable=True)
+    #date_finished = db.Column(db.DateTime, nullable=True)
     rating = db.Column(db.Float, nullable=False)
 
     def __repr__(self):
         return ''.join([
             'Title: ', self.anime_id.title, '\r\n',
             # 'Date Started: ', self.date_started, '\r\n',
-            'Rating: ', self.rating, '\r\n',
-            'Date Finished: ', self.date_finished, '\r\n'
+            'Rating: ', self.rating, '\r\n'
+            #'Date Finished: ', self.date_finished, '\r\n'
             ])
