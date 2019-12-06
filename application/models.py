@@ -1,12 +1,13 @@
 from application import db, login_manager
 from flask_login import UserMixin
+from datetime import datetime
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(50), nullable=False)
     lastname = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(150), nullable=False unique=True)
-    password = db.Column(db.String(255) nullable=False)
+    email = db.Column(db.String(150), nullable=False, unique=True)
+    password = db.Column(db.String(255), nullable=False)
     relation = db.relationship('Anime_Watching', backref='user', lazy=True)
     def __repr__(self):
         return ''.join([
@@ -37,7 +38,7 @@ class Anime_Watching(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     anime_id = db.Column(db.Integer, db.ForeignKey('anime.id'), nullable=False)
     episode = db.Column(db.Integer, nullable=True)
-    date_started = db.Column(db.Datetime nullable=True)
+    date_started = db.Column(db.DateTime, nullable=True)
 
     def __repr__(self):
         return ''.join([
@@ -51,8 +52,8 @@ class Anime_Completed(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     anime_id = db.Column(db.Integer, db.ForeignKey('anime.id'), nullable=False)
     # date_started = db.Column(db.Datetime nullable=True)
-    date_finished = db.Column(db.Datetime nullable=True)
-    rating = db.Column(db.Float nullable=False)
+    date_finished = db.Column(db.DateTime, nullable=True)
+    rating = db.Column(db.Float, nullable=False)
 
     def __repr__(self):
         return ''.join([

@@ -2,14 +2,14 @@ from flask_wtf import FlaskForm
 from flask_login import LoginManager
 from wtform import StringField, SubmitField, PasswordField, BooleanField
 from wtform.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from application.models import User
+from application.models import User, Anime, Anime_Watching, Anime_Completed
 
 class RegisterForm(FlaskForm):
     firstname = StringField('Firstname',
             validators = [DataRequired(), Length(min=3, max=30)]
             )
     lastname = StringField('Lastname',
-            validators = [DataRequired(), Length(min=3 max=30)]
+            validators = [DataRequired(), Length(min=3, max=30)]
             )
     email = StringField('Email',
             validators = [DataRequired(), Length(min=6)]
