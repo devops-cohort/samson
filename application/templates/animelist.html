@@ -16,6 +16,8 @@
 				<th>{{ anime.genre }}</th>
 				<th>{{ anime.year_released }}</th>
 			</tr>
+			<a href='{{ url_for('add_to_watching') }}'>Watching</a>
+			<a href='{{ url_for('add_to_completed') }}'>Completed
 		{% endfor %}
 	</table>
 <!-- <p>Welcome to this web app!</p> -->
