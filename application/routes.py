@@ -54,6 +54,5 @@ def profile():
 @app.route('/animelist')
 @login_required
 def animelist():
-    anime.query.all()
-    anime.query.first()
-    return render_template('animelist.html', title='AnimeList')
+    animeData = Anime.query.all()
+    return render_template('animelist.html', title='AnimeList', animes=animeData)

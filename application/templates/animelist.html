@@ -10,11 +10,13 @@
 			<th>Genre</th>
 			<th>Year Released</th>
 		</tr>
-		<tr>
-			<th>{{ animes.title }}</th>
-			<th>{{ animes.genre }}</th>
-			<th>{{ animes.year_released }}</th>
-		</tr>
+		{% for anime in animes %}
+			<tr>
+				<th>{{ anime.title }}</th>
+				<th>{{ anime.genre }}</th>
+				<th>{{ anime.year_released }}</th>
+			</tr>
+		{% endfor %}
 	</table>
 <!-- <p>Welcome to this web app!</p> -->
 {% endblock body_content %}
