@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
 from flask_login import LoginManager
-from wtform import StringField, SubmitField, PasswordField, BooleanField
-from wtform.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import StringField, SubmitField, PasswordField, BooleanField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from application.models import User, Anime, Anime_Watching, Anime_Completed
+import re
 
 class RegisterForm(FlaskForm):
     firstname = StringField('Firstname',
@@ -31,16 +32,16 @@ class RegisterForm(FlaskForm):
     # Checking the password to make sure it has uppercase, lowercase, an integer and is at least 6 characters long    
     def validate_password(self, password):
         valid = True
-        if len(password.data < 6):
+        if len(password.data) < 6:
             valid = False
             ValidatorError('Password needs to be more than 6 characters')
-        elif not re.search([A-Z], password.data):
+        elif not re.search(r'[A-Z]', password.data):
             valid = False
             ValidatorError('Password needs to have UPPERCASE characters')
-        elif not re.search([a-z], password.data):
+        elif not re.search(r'[a-z]', password.data):
             valid = False
             ValidatorError('Password needs to have LOWERCASE characters')
-        elif not re.search([0-9], password.data):
+        elif not re.search(r'[0-9]', password.data):
             valid = False
             ValidatorError('Password needs to have NUMBERS')
         # If the validation conditions are not met then show the following error message 
@@ -49,5 +50,15 @@ class RegisterForm(FlaskForm):
 
     # Checking if the confirm password field matches the password field
     def validate_confirm_password(self, confirm_password):
-        if confirm_password.data != password.data:
+        if confirm_password.data != self.password.data:
             raise ValidatorError('Passwords do not match!')
+
+class LoginForm(FlaskForm):
+    email = StringField('Email',
+            validators = [DataRequired(), Email()]
+            )
+    password = PasswordField('Password', 
+            validators = [DataRequired()]
+            )
+    remember = BooleanField('Remember Me')
+    submit = SubmitField('Login')
