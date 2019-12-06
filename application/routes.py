@@ -46,3 +46,14 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', title='Profile')
+
+@app.route('/animelist')
+@login_required
+def animelist():
+    anime.query.all()
+    anime.query.first()
+    return render_template('animelist.html', title='AnimeList')
