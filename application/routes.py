@@ -5,7 +5,9 @@ from application.models import User, Anime
 from application.forms import RegisterForm, LoginForm
 
 @app.route('/')
+
 @app.route('/home')
+@login_required
 def home():
     return render_template('home.html', title='Home')
 
