@@ -56,3 +56,5 @@ def profile():
 def animelist():
     animeData = Anime.query.all()
     return render_template('animelist.html', title='AnimeList', animes=animeData)
+
+@app.route('')
