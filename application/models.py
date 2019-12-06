@@ -1,6 +1,6 @@
 from application import db, login_manager
 from flask_login import UserMixin
-from datetime import datetime
+#from datetime import datetime
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -51,14 +51,14 @@ class Anime_Completed(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     anime_id = db.Column(db.Integer, db.ForeignKey('anime.id'), nullable=False)
-    # date_started = db.Column(db.Datetime nullable=True)
+    #date_started = db.Column(db.Datetime nullable=True)
     #date_finished = db.Column(db.DateTime, nullable=True)
     rating = db.Column(db.Float, nullable=False)
 
     def __repr__(self):
         return ''.join([
             'Title: ', self.anime_id.title, '\r\n',
-            # 'Date Started: ', self.date_started, '\r\n',
+            #'Date Started: ', self.date_started, '\r\n',
             'Rating: ', self.rating, '\r\n'
             #'Date Finished: ', self.date_finished, '\r\n'
             ])
