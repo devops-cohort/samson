@@ -62,3 +62,12 @@ class LoginForm(FlaskForm):
             )
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+class addWatching(FlaskForm):
+    watching = SubmitField('Watching')
+    
+    def add_watching(self, 'watching'):
+        animeT = Anime.query.all()
+        # for a is in the anime table, if a.id is equal to the id to an id in the foregin list
+        # dont add to the list else add.
+        anime = Anime__Watching.query().filter_by(Anime.id) 
