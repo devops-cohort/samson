@@ -5,20 +5,19 @@
 
 <div class="table">
 	<table>
-		<tr>
-			<th>Title</th>
-			<th>Genre</th>
-			<th>Year Released</th>
-		</tr>
-		{% for anime in animes %}
-			<tr>
-				<th>{{ anime.title }}</th>
-				<th>{{ anime.genre }}</th>
-				<th>{{ anime.year_released }}</th>
-			</tr>
-			<a href='{{ url_for('add_to_watching') }}'>Watching</a>
-			<a href='{{ url_for('add_to_completed') }}'>Completed
-		{% endfor %}
+		<tbody>
+			<tr><th>Title</th></tr>
+			<tr><th>Genre</th></tr>
+			<tr><th>Year Released</th></tr>
+			{% for anime in animes %}
+				<tr><td>{{ anime.title }}</td></tr>
+				<tr><td>{{ anime.genre }}</td></tr>
+				<tr><td>{{ anime.year_released }}</td></tr>
+			{% else %}
+				<a href="{{ url_for('add_to_watching') }}">Watching</a>
+				<a href="{{ url_for('add_to_completed') }}">Completed</a>
+			{% endfor %}
+		</tbody>
 	</table>
 <!-- <p>Welcome to this web app!</p> -->
 {% endblock body_content %}
