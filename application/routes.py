@@ -57,4 +57,8 @@ def animelist():
     animeData = Anime.query.all()
     return render_template('animelist.html', title='AnimeList', animes=animeData)
 
-@app.route('')
+@app.route('/add_to_watching', methods=['GET', 'POST'])
+@login_required
+def watching():
+    add_watch = 
+    return render_template()
