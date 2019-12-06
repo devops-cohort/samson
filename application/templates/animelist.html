@@ -14,8 +14,8 @@
 				<tr><td>{{ anime.genre }}</td></tr>
 				<tr><td>{{ anime.year_released }}</td></tr>
 			{% else %}
-				<a href="{{ url_for('add_to_watching') }}">Watching</a>
-				<a href="{{ url_for('add_to_completed') }}">Completed</a>
+				<a href="{{ watching.submit }}">Watching</a>
+				<a href="{{ completed.submit) }}">Completed</a>
 			{% endfor %}
 		</tbody>
 	</table>
