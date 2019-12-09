@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 {% extends "layout.html" %}
 {% block body_content %}
-<h1>{{ current_user.firstname }} {{ current_user.last_name }}'s Page</h1>
+<h1>{{ current_user.firstname }} {{ current_user.lastname }}'s Page</h1>
+<br>
+<h2>Change Details</h2>
+<div class="form">
+                <form method="POST" action="">
+			{{ form.hidden_tag() }}                                       
+                        <!-- User Input: Old password -->
+                        <div class="form-group">
+                                {{ form.old_password.label }}
+                                {% if form.old_password %}
+                                        {{ form.old_password }}
+                                <div class="error">
+                                        {% for error in form.old_password.error %}
+                                                <span>{{ error }}</span>
+                                        {% endfor %}
+                                </div>
+                                {% else %}
+                                        {{ form.old_password }}
+                                {% endif %}
+                        </div>
+                        <br>
+                        <!-- User Input: New Password -->
+                        <div class="form-group">
+                                {{ form.new_password.label }}
+                                {% if form.new_password %}
+                                        {{ form.new_password }}
+                                <div class="error">
+                                        {% for error in form.new_password.error %}
+                                                <span>{{ error }}</span>
+                                        {% endfor %}
+                                </div>
+                                {% else %}
+                                        {{ form.new_password }}
+                                {% endif %}
+                        </div>
+			<br>
+                        <!-- User Input: Confirm NewPassword -->
+                        <div class="form-group">
+                                {{ form.confirm_password.label }}
+                                {% if form.confirm_password %}
+                                        {{ form.confirm_password }}
+                                <div class="error">
+                                        {% for error in form.confirm_password.error %}
+                                                <span>{{ error }}</span>
+                                        {% endfor %}
+                                </div>
+                                {% else %}
+                                        {{ form.confirm_password }}
+                                {% endif %}
+                        </div>
+                        <br>
+			<div class="form-group">
+				{{ form.submit }}	
+			</div>
+		</form>
+
+</div>
+
 
 {% endblock body_content %}

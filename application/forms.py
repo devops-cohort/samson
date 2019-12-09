@@ -63,11 +63,48 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
-class addWatching(FlaskForm):
-    watching = SubmitField('Watching')
-    
-    def add_watching(self, 'watching'):
-        animeT = Anime.query.all()
-        # for a is in the anime table, if a.id is equal to the id to an id in the foregin list
-        # dont add to the list else add.
-        anime = Anime__Watching.query().filter_by(Anime.id) 
+class AddWatching(FlaskForm):
+    watch = SubmitField('Watching')
+
+class UpdatePasswordForm(FlaskForm):
+    old_password = PasswordField('Old Password',
+            validators = [DataRequired(), Length(min=6)]
+            )
+    new_password = PasswordField('New Password',
+            validators = [DataRequired(), Length(min=6)]
+            )
+    confirm_password = PasswordField('Confirm Password',
+            validators = [DataRequired(), Length(min=6)]
+            )
+    submit = SubmitField('Update')
+
+    def check_Old_Password(self, old_password):
+        if current_user.password != old_password.data:
+            user = User.query.filter_by(password=old_password.data).first()
+            raise ValidatorError('Wrong password')
+
+
+
+    def validate_password(self, new_password):
+        valid = True
+        if len(new_password.data) < 6:
+            valid = False
+            ValidatorError('Password needs to be more than 6 characters')
+        elif not re.search(r'[A-Z]', new_password.data):
+            valid = False
+            ValidatorError('Password needs to have UPPERCASE characters')
+        elif not re.search(r'[a-z]', new_password.data):
+            valid = False
+            ValidatorError('Password needs to have LOWERCASE characters')
+        elif not re.search(r'[0-9]', new_password.data):
+            valid = False
+            ValidatorError('Password needs to have NUMBERS')
+        # If the validation conditions are not met then show the following error message
+        if valid == False:
+            ValidatorError('Password needs to have UPPERCASE, LOWERCASE, NUMBERS and must be at least 6 characters long')
+
+    # Checking if the confirm password field matches the password field
+    def validate_confirm_password(self, confirm_password):
+        if confirm_password.data != self.new_password.data:
+            raise ValidatorError('Passwords do not match!')
+
