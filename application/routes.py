@@ -57,20 +57,21 @@ def profile():
     form = UpdatePasswordForm()
     if form.validate_on_submit():
         #user = User.query.get(id)
-        user = User.query.filter_by(id = current_user.id).first()
-        if request.method == 'POST':
-            if bcrypt.check_password_hash(user.password, form.old_password.data):
-                hashed_pw = bcrypt.generate_password_hash(form.new_password.data)
-                user = User(
-                    firstname=current_user.firstname,
-                    lastname=current_user.lastname,
-                    email=current_user.email,
-                    password=hashed_pw
-                    )
+        #user = User.query.filter_by(id = current_user.id).first()
+        #if request.method == 'POST':
+        if bcrypt.check_password_hash(current_user.password, form.old_password.data):
+            hashed_pw = bcrypt.generate_password_hash(form.new_password.data)
+                #user = User(
+                    #firstname=current_user.firstname,
+                    #lastname=current_user.lastname,
+                    #email=current_user.email,
+            password=hashed_pw
+                    #)
             #db.session.delete(user.password)
-                db.session.commit()
-                return redirect(url_for('home'))
-    return render_template('profile.html', title='Profile', form=form)
+            db.session.commit()
+            return redirect(url_for('home'))
+    else:
+        return render_template('profile.html', title='Profile', form=form)
 
 @app.route('/animelist')
 @login_required
