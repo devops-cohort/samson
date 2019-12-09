@@ -3,3 +3,4 @@ The idea for the project was to create a personal list of anime shows they are c
 
 
 App: http://35.228.204.140:5000/
+Trello: https://trello.com/b/t9JVLLC6/solo-project
