@@ -27,31 +27,31 @@ class RegisterForm(FlaskForm):
     def validate_email(self, email):
         user = User.query.filter_by(email = email.data).first()
         if user:
-            raise ValidatorError('Email is already in use!')
+            raise ValidationError('Email is already in use!')
 
     # Checking the password to make sure it has uppercase, lowercase, an integer and is at least 6 characters long    
     def validate_password(self, password):
         valid = True
         if len(password.data) < 6:
             valid = False
-            ValidatorError('Password needs to be more than 6 characters')
+            ValidationError('Password needs to be more than 6 characters')
         elif not re.search(r'[A-Z]', password.data):
             valid = False
-            ValidatorError('Password needs to have UPPERCASE characters')
+            ValidationError('Password needs to have UPPERCASE characters')
         elif not re.search(r'[a-z]', password.data):
             valid = False
-            ValidatorError('Password needs to have LOWERCASE characters')
+            ValidationError('Password needs to have LOWERCASE characters')
         elif not re.search(r'[0-9]', password.data):
             valid = False
-            ValidatorError('Password needs to have NUMBERS')
+            ValidationError('Password needs to have NUMBERS')
         # If the validation conditions are not met then show the following error message 
         if valid == False:
-            ValidatorError('Password needs to have UPPERCASE, LOWERCASE, NUMBERS and must be at least 6 characters long')
+            ValidationError('Password needs to have UPPERCASE, LOWERCASE, NUMBERS and must be at least 6 characters long')
 
     # Checking if the confirm password field matches the password field
     def validate_confirm_password(self, confirm_password):
         if confirm_password.data != self.password.data:
-            raise ValidatorError('Passwords do not match!')
+            raise ValidationError('Passwords do not match!')
 
 class LoginForm(FlaskForm):
     email = StringField('Email',
@@ -81,7 +81,7 @@ class UpdatePasswordForm(FlaskForm):
     def check_Old_Password(self, old_password):
         if current_user.password != old_password.data:
             user = User.query.filter_by(password=old_password.data).first()
-            raise ValidatorError('Wrong password')
+            raise ValidationError('Wrong password')
 
 
 
@@ -89,22 +89,22 @@ class UpdatePasswordForm(FlaskForm):
         valid = True
         if len(new_password.data) < 6:
             valid = False
-            ValidatorError('Password needs to be more than 6 characters')
+            ValidationError('Password needs to be more than 6 characters')
         elif not re.search(r'[A-Z]', new_password.data):
             valid = False
-            ValidatorError('Password needs to have UPPERCASE characters')
+            ValidationError('Password needs to have UPPERCASE characters')
         elif not re.search(r'[a-z]', new_password.data):
             valid = False
-            ValidatorError('Password needs to have LOWERCASE characters')
+            ValidationError('Password needs to have LOWERCASE characters')
         elif not re.search(r'[0-9]', new_password.data):
             valid = False
-            ValidatorError('Password needs to have NUMBERS')
+            ValidationError('Password needs to have NUMBERS')
         # If the validation conditions are not met then show the following error message
         if valid == False:
-            ValidatorError('Password needs to have UPPERCASE, LOWERCASE, NUMBERS and must be at least 6 characters long')
+            ValidationError('Password needs to have UPPERCASE, LOWERCASE, NUMBERS and must be at least 6 characters long')
 
     # Checking if the confirm password field matches the password field
     def validate_confirm_password(self, confirm_password):
         if confirm_password.data != self.new_password.data:
-            raise ValidatorError('Passwords do not match!')
+            raise ValidationError('Passwords do not match!')
 
